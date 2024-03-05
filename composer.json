@@ -1,0 +1,17 @@
+{
+    "name": "black-dino/i-see-you",
+    "description": "laravel security library",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "BlackDino\\ISeeYou\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sfjp23j2",
+            "email": "tutbxaoptpo@gmail.com"
+        }
+    ],
+    "require": {}
+}
