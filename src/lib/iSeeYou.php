@@ -72,4 +72,12 @@ class iSeeYou
         // // fill this var in another function
         // Log::stack(['slack', $channel])->notice('dsa');
     }
+
+    /**
+     * this is return is vulnerabilities is find or not
+     * 
+     */
+    public function isDangrous(){
+        return var_export((bool)$this->vulnerabilities);
+    }
 }
