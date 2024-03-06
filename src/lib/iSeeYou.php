@@ -27,7 +27,7 @@ class iSeeYou extends Helper
      * @param string $data - give data to check
      * @return bool - True if xss find and false otherwise 
      */
-    public function PreventXSS($data)
+    public function PreventXSS($data, $request)
     {
         // write regex to find xss vulnerabilities
         // and check that if the vulnerability found it
@@ -36,8 +36,7 @@ class iSeeYou extends Helper
 
         if ($isMatch) {
             $this->vulnerabilities += 1;
-            $message = "xss-find -ip: , user-agent: , data: $data,";
-            $this->messages[] = $message;
+            $this->messages[] = $this->Xss_Log($request, $data);
             return true;
         }
 
