@@ -32,6 +32,10 @@ class iSeeYou
 
     public function PreventRCE($data)
     {
+        $pattern = "/(pHp|pHP5|PhAr|php[1-9]|php|.php.jpg|.php.png)/i";
+        $isMatch = preg_match($pattern,$data);
+
+        return var_export((bool) $isMatch);
     }
 
     public function RemoveDangrousHttpHeaders()
