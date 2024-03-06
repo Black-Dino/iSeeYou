@@ -11,7 +11,7 @@ class Helper
         fclose($file);
     }
 
-    public function Xss_Log($request, $data)
+    public function Xss_Log($data)
     {
         $ip = header('IP_ADDR');
         $user_agent = header('USER_AGENT');

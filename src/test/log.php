@@ -11,5 +11,5 @@ $req = [
     'user_agent'=>'ds'
 ];
 
-$app->PreventXSS($data,$req);
+$app->PreventXSS($data);
 $app->LogingSuspiciousData();
