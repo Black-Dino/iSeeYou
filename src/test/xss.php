@@ -8,6 +8,6 @@ $app = new iSeeYou();
 $data = '<script>alert(origin)<script>';
 
 // safe data
-$data = 'hello-world';
+// $data = 'hello-world';
 
 echo $app->PreventXSS($data);

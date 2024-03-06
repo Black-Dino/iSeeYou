@@ -27,12 +27,7 @@ class iSeeYou
         $pattern = "/(script|cript|alert|%253E|svg|style|img|[<|>])/i";
         $isMatch = preg_match($pattern, $data);
 
-        if ($isMatch) {
-            $this->vulnerabilities += 1;
-            return true;
-        }
-
-        return false;
+        return var_export((bool)$isMatch);
     }
 
     public function PreventRCE($data)
@@ -41,6 +36,16 @@ class iSeeYou
 
     public function RemoveDangrousHttpHeaders()
     {
+        $dangrous_headers = [
+            "Server",
+            "server",
+            "Power-By"
+        ];
+
+        // remove header
+        foreach ($dangrous_headers as $header) {
+            header_remove($header);
+        }
     }
 
     // public $SecurityHeaders = [
