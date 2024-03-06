@@ -5,7 +5,11 @@
     "autoload": {
         "psr-4": {
             "BlackDino\\ISeeYou\\": "src/"
-        }
+        },
+        "files": [
+            "src/ISeeYou.php",
+            "src/Helper.php"
+        ]
     },
     "authors": [
         {

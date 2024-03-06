@@ -2,9 +2,16 @@
 
 namespace BlackDino\iSeeYou;
 
-class iSeeYou
+use BlackDino\iSeeYou\Helper\Helper;
+// use BlackDino\iSeeYou\Helper;
+
+require_once('../iSeeYou/src/lib/Helper.php');
+
+
+class iSeeYou extends Helper
 {
     private $vulnerabilities = 0;
+    private $messages = [];
 
     public function __construct()
     {
@@ -27,15 +34,27 @@ class iSeeYou
         $pattern = "/(script|cript|alert|%253E|svg|style|img|[<|>])/i";
         $isMatch = preg_match($pattern, $data);
 
-        return var_export((bool)$isMatch);
+        if ($isMatch) {
+            $this->vulnerabilities += 1;
+            $message = "xss-find -ip: , user-agent: , data: $data,";
+            $this->messages[] = $message;
+            return true;
+        }
+
+        return false;
     }
 
     public function PreventRCE($data)
     {
         $pattern = "/(pHp|pHP5|PhAr|php[1-9]|php|.php.jpg|.php.png)/i";
-        $isMatch = preg_match($pattern,$data);
+        $isMatch = preg_match($pattern, $data);
 
-        return var_export((bool) $isMatch);
+        if ($isMatch) {
+            $this->vulnerabilities += 1;
+            return true;
+        }
+
+        return false;
     }
 
     public function RemoveDangrousHttpHeaders()
@@ -67,21 +86,26 @@ class iSeeYou
 
     public function LogingSuspiciousData()
     {
-        // $channel = Log::build([
-        //     'driver' => 'single',
-        //     'path' => storage_path('logs/SuspiciousData.log'),
-        // ]);
+        $path = 'storage/logs/iSeeYou.log';
+        $path = "log.log";
 
-        // // get err data in $err 
-        // // fill this var in another function
-        // Log::stack(['slack', $channel])->notice('dsa');
+        if ($this->isDangrous()) {
+            foreach ($this->messages as $message) {
+                $this->write_in_file($path, $message);
+            }
+        }
     }
 
     /**
      * this is return is vulnerabilities is find or not
      * 
      */
-    public function isDangrous(){
-        return var_export((bool)$this->vulnerabilities);
+    public function isDangrous()
+    {
+        if ($this->vulnerabilities > 0) {
+            return true;
+        }
+
+        return false;
     }
 }
